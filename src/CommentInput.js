@@ -73,6 +73,7 @@ class CommentInput extends Component {
       this.props.onSubmit({username, message})
     }
 
+    console.log(this.state.message)
     this.setState({ message: '', usernameErrorPrompt: '', messageErrorPrompt: '' })
   }
 
@@ -95,14 +96,16 @@ class CommentInput extends Component {
           <div className='comment-field-input'>
             <TextField 
               hintText="message" 
+              floatingLabelText='multi-line textarea'
               multiLine={true} 
               value={this.state.message}
               errorText={this.state.messageErrorPrompt} 
               onChange={this.handleCommentChange} 
+              style={{width: '80%'}}
               ref={(commentField) => this.commentField = commentField} /> 
           </div>
         </div>
-        <div className='comment-field-button' style={{left: '80%', position: 'relative'}}>
+        <div className='comment-field-button' style={{left: '88%', position: 'relative'}}>
           <RaisedButton label='Submit' primary={true} onClick={this.handleSubmit}/>
         </div>
       </div>
