@@ -13,8 +13,35 @@ class CommentInput extends Component {
     }
   }
 
+  componentWillMount() {
+    this._loadUsername()
+  }
+
+  componentDidMount() {
+    if (!this.state.username) {
+      this.usernameField.focus()
+    } else {
+      this.commentField.focus()
+    }
+  }
+
+  _saveUsername = (username) => {
+    localStorage.setItem('username', username)
+  }
+
+  _loadUsername = () => {
+    const username = localStorage.getItem('username')
+    if (username) {
+      this.setState({username: username})
+    }
+  }
+
   handleUsernameChange = (e) => {
     this.setState({ username: e.target.value })
+  }
+
+  handleUsernameBlur = (e) => {
+    this._saveUsername(e.target.value)
   }
 
   handleCommentChange = (e) => {
@@ -22,22 +49,27 @@ class CommentInput extends Component {
   }
 
   handleSubmit = () => {
-    if (this.state.username === '') {
+    if (!this.state.username) {
       this.setState({usernameErrorPrompt: 'username can not be empty.'})
       return
     } else {
-      this.setState({usernameErrorPrompt: ''})
+      if (this.state.usernameErrorPrompt) {
+        this.setState({usernameErrorPrompt: ''})
+      }
     }
 
-    if (this.state.message === '') {
+    if (!this.state.message) {
       this.setState({messageErrorPrompt: 'message can not be empty.'})
       return
     } else {
-      this.setState({messageErrorPrompt: ''})
+      if (this.state.messageErrorPrompt) {
+        this.setState({messageErrorPrompt: ''})
+      }
     }
 
     if (this.props.onSubmit) {
       const { username, message } = this.state
+      this.commentField.focus()
       this.props.onSubmit({username, message})
     }
 
@@ -54,17 +86,20 @@ class CommentInput extends Component {
               floatingLabelText='You are?' 
               value={this.state.username}
               errorText={this.state.usernameErrorPrompt}
-              onChange={this.handleUsernameChange} />
+              onChange={this.handleUsernameChange}
+              onBlur={this.handleUsernameBlur}
+              ref={(usernameField) => this.usernameField = usernameField} />
           </div>
         </div>
         <div className='comment-field'>
           <div className='comment-field-input'>
             <TextField 
-              hintText="comment" 
+              hintText="message" 
               multiLine={true} 
               value={this.state.message}
               errorText={this.state.messageErrorPrompt} 
-              onChange={this.handleCommentChange} /> 
+              onChange={this.handleCommentChange} 
+              ref={(commentField) => this.commentField = commentField} /> 
           </div>
         </div>
         <div className='comment-field-button' style={{left: '80%', position: 'relative'}}>

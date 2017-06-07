@@ -5,7 +5,7 @@ class CommentList extends Component {
   constructor() {
     super()
     this.state = {
-      hintMessage: ''
+      hintMessage: null
     }
   }
 
@@ -17,7 +17,7 @@ class CommentList extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.comments.length !== 0) {
-      this.setState({hintMessage: ''})
+      this.setState({hintMessage: null})
     }
   }
 
