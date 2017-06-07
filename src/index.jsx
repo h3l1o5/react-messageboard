@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import CommentApp from './CommentApp.js'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import './index.css'
+
+injectTapEventPlugin()
 
 class App extends Component {
   constructor() {
@@ -10,9 +16,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Hello World!</h1>
-      </div>
+      <MuiThemeProvider>
+        <div className='wrapper'>
+          <CommentApp />
+        </div>
+      </MuiThemeProvider>
     )
   }
 }
