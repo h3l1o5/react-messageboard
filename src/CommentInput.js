@@ -70,11 +70,13 @@ class CommentInput extends Component {
     if (this.props.onSubmit) {
       const { username, message } = this.state
       this.commentField.focus()
-      this.props.onSubmit({username, message})
+      this.props.onSubmit({
+        username,
+        message,
+        createdTime: Date.now()
+      })
+      this.setState({ message: '' })
     }
-
-    console.log(this.state.message)
-    this.setState({ message: '', usernameErrorPrompt: '', messageErrorPrompt: '' })
   }
 
   render() {
