@@ -1,20 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 
 class CommentInput extends Component {
-  constructor() {
-    super()
+  static propTypes = {
+    username: PropTypes.any,
+    onSubmit: PropTypes.func,
+    onUsernameBlur: PropTypes.func
+  }
+
+  static defaultProps = {
+    username: ''
+  }
+
+  constructor(props) {
+    super(props)
     this.state = {
-      username: '',
+      username: props.username,
       message: '',
       usernameErrorPrompt: '',
       messageErrorPrompt: ''
     }
-  }
-
-  componentWillMount() {
-    this._loadUsername()
   }
 
   componentDidMount() {
@@ -25,23 +31,14 @@ class CommentInput extends Component {
     }
   }
 
-  _saveUsername = (username) => {
-    localStorage.setItem('username', username)
-  }
-
-  _loadUsername = () => {
-    const username = localStorage.getItem('username')
-    if (username) {
-      this.setState({username: username})
-    }
-  }
-
   handleUsernameChange = (e) => {
     this.setState({ username: e.target.value })
   }
 
   handleUsernameBlur = (e) => {
-    this._saveUsername(e.target.value)
+    if(this.props.onUsernameBlur) {
+      this.props.onUsernameBlur(e.target.value)
+    }
   }
 
   handleCommentChange = (e) => {
@@ -69,13 +66,13 @@ class CommentInput extends Component {
 
     if (this.props.onSubmit) {
       const { username, message } = this.state
-      this.commentField.focus()
       this.props.onSubmit({
         username,
         message,
         createdTime: Date.now()
       })
       this.setState({ message: '' })
+      this.commentField.focus()
     }
   }
 

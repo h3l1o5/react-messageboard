@@ -2,7 +2,7 @@
   "name": "my_simple_react_boilerplate",
   "version": "1.0.0",
   "description": "a simple reactjs boilerplate",
-  "main": "index.jsx",
+  "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --devtool eval --progress --colors"
   },
@@ -26,6 +26,8 @@
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-redux": "^5.0.5",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0"
   }
 }

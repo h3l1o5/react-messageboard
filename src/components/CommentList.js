@@ -10,14 +10,14 @@ class CommentList extends Component {
   }
 
   componentDidMount() {
-    if (this.props.comments.length == 0) {
-      this.setState({hintMessage: 'No comment yet.'})
-    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.comments.length !== 0) {
       this.setState({hintMessage: null})
+    }
+    if (nextProps.comments.length == 0) {
+      this.setState({hintMessage: 'No comment yet.'})
     }
   }
 
@@ -29,7 +29,7 @@ class CommentList extends Component {
           return (
             <Comment 
               key={i}
-              onCommentRemove={this.props.onCommentRemove}
+              onRemoveComment={this.props.onRemoveComment}
               index={i}
               comment={comment}
             />

@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: `${__dirname}/src/index.html`,
@@ -8,7 +9,7 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 
 module.exports = {
   entry: [
-    './src/index.jsx',
+    path.resolve(__dirname,'src/index.js')
   ],
 
   output: {
@@ -34,6 +35,7 @@ module.exports = {
   },
 
   devServer: {
+    host: 'localhost',
     inline: true,
     port: 8000,
   },

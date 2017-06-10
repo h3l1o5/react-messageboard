@@ -18,13 +18,14 @@ class Comment extends Component {
     const comment = this.props.comment
     const duration = (Date.now() - comment.createdTime) / 1000
     this.setState({
-      timeString: duration > 60 ? `${Math.round(duration/60)} mins ago` : `${Math.round(Math.max(duration, 1))} seconds ago`
+      timeString: duration > 60 ? `${Math.round(duration/60)} mins ago` 
+                                : `${Math.round(Math.max(duration, 1))} seconds ago`
     })
   }
   
   handleRemove = () => {
-    if (this.props.onCommentRemove) {
-      this.props.onCommentRemove(this.props.index)
+    if (this.props.onRemoveComment) {
+      this.props.onRemoveComment(this.props.index)
     }
   }
 
