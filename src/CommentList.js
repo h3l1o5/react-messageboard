@@ -9,13 +9,10 @@ class CommentList extends Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.comments.length == 0) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.comments.length == 0) {
       this.setState({hintMessage: 'No comment yet.'})
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
     if (nextProps.comments.length !== 0) {
       this.setState({hintMessage: null})
     }
